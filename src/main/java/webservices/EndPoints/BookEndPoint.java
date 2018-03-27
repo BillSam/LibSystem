@@ -66,4 +66,10 @@ public class BookEndPoint {
 
     }
 
+    //sub-resource to reserve a book
+    @Path("/{bookId}/reserve")
+    public LibraryEndPoint reserveBook(){
+        return new LibraryEndPoint();
+    }
+
 }

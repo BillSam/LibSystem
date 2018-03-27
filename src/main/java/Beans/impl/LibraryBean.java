@@ -8,6 +8,7 @@ import Entities.IssuanceState;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.transaction.Transactional;
 import java.util.List;
 
 /**
@@ -24,6 +25,7 @@ public class LibraryBean implements LibraryInt {
     /*
     * before issuing a book: check book in db(status),verify reader,
     * update status of book, return date*/
+    @Transactional
     public boolean checkOutBook(Object o) {
         Issuance issuance = (Issuance) o;
         if (bookBean.get(issuance.getBook().getISNB()) != null){//check book in db
@@ -46,6 +48,7 @@ public class LibraryBean implements LibraryInt {
         return false;
     }
 
+    @Transactional
     public Issuance checkInBook(Object o) {
         Issuance issuance = (Issuance) o;
         Issuance dbIssuance = issuanceBean.get(issuance.getId());
@@ -78,6 +81,7 @@ public class LibraryBean implements LibraryInt {
         return dbIssuance;
     }
 
+    @Transactional
     public boolean placeReservation(Object o) {
         Book book = (Book) o;
         if (bookBean.get(book.getISNB()) != null){

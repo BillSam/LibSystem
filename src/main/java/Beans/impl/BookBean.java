@@ -9,6 +9,7 @@ import Entities.BookStatus;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 import java.util.List;
 
 /**
@@ -34,12 +35,14 @@ public class BookBean implements BeanInt<Book> {
     }
 
 
+    @Transactional
     public Book get(long id) {
         if (bookDao.read(id) != null)
             return bookDao.read(id);
         return null;
     }
 
+    @Transactional
     public boolean update(Book book, long id) {
         if (bookDao.update(book, id) != null)
             return true;
@@ -64,6 +67,7 @@ public class BookBean implements BeanInt<Book> {
         return bookDao.getBookByStatus(status);
     }
 
+    @Transactional
     public BookStatus getABookStatus(long isnb){
         if (bookDao.getBookstatus(isnb) != null)
             return bookDao.getBookstatus(isnb);
@@ -71,6 +75,7 @@ public class BookBean implements BeanInt<Book> {
 
     }
 
+    @Transactional
     public boolean updateBookStatus(BookStatus bookStatus, long id){
         if (bookDao.updateBookStatus(bookStatus, id))
             return true;

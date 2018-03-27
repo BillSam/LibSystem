@@ -9,6 +9,7 @@ import Entities.Issuance;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 import java.util.List;
 
 /**
@@ -26,6 +27,7 @@ public class IssuanceBean implements BeanInt<Issuance> {
 
     }
 
+    @Transactional
     public boolean create(Issuance issuance) {
         if (issuanceDao.create(issuance) != null){
             return true;
@@ -39,6 +41,7 @@ public class IssuanceBean implements BeanInt<Issuance> {
         return null;
     }
 
+    @Transactional
     public boolean update(Issuance issuance, long id) {
         if (issuanceDao.update(issuance,id) != null)
             return true;
@@ -55,6 +58,7 @@ public class IssuanceBean implements BeanInt<Issuance> {
         return issuanceDao.getAll();
     }
 
+    @Transactional
     public boolean isBookOverDue(Book book){
         List<Issuance> list = getOverDueBooks();
 
@@ -73,6 +77,7 @@ public class IssuanceBean implements BeanInt<Issuance> {
 
         return issuanceDao.getOverDueBooks();
     }
+    @Transactional
     public boolean updateIssuanceBookStatus(Book book, BookStatus bookStatus){
         if (issuanceDao.updateIssuanceBookStatus(book,bookStatus))
             return true;
